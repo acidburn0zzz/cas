@@ -1,6 +1,5 @@
 package org.apereo.cas.support.saml.idp.metadata;
 
-import org.apereo.cas.category.CouchDbCategory;
 import org.apereo.cas.config.CasCoreAuthenticationConfiguration;
 import org.apereo.cas.config.CasCoreAuthenticationHandlersConfiguration;
 import org.apereo.cas.config.CasCoreAuthenticationMetadataConfiguration;
@@ -41,9 +40,9 @@ import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 
 import org.junit.ClassRule;
 import org.junit.Rule;
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -102,7 +101,7 @@ import static org.junit.Assert.*;
     CasCoreUtilConfiguration.class})
 @EnableConfigurationProperties(CasConfigurationProperties.class)
 @TestPropertySource(properties = "cas.authn.samlIdp.metadata.couchDb.idpMetadataEnabled=true")
-@Category(CouchDbCategory.class)
+@Tag("couchdb")
 public class CouchDbSamlIdPMetadataGeneratorTests {
     @ClassRule
     public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();

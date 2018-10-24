@@ -1,11 +1,10 @@
 package org.apereo.cas.services;
 
-import org.apereo.cas.category.CouchDbCategory;
 import org.apereo.cas.config.CouchDbServiceRegistryConfiguration;
 import org.apereo.cas.couchdb.core.CouchDbConnectorFactory;
 import org.apereo.cas.couchdb.services.RegisteredServiceCouchDbRepository;
 
-import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Tag;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ import java.util.Collection;
         "cas.serviceRegistry.couchDb.username=",
         "cas.serviceRegistry.couchDb.password="
     })
-@Category(CouchDbCategory.class)
+@Tag("couchdb")
 public class CouchDbServiceRegistryTests extends AbstractServiceRegistryTests {
 
     @Autowired

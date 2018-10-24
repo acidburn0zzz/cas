@@ -34,10 +34,9 @@ task testCouchbase(type: Test) {
 }
 
 task testCouchDb(type: Test) {
-    enabled = shouldTest(project.sourceSets.test.java.srcDirs, "CouchDb")
+    enabled = shouldTest(project.sourceSets.test.java.srcDirs, "couchdb")
     useJUnitPlatform {
-        includeTags rootProject.ext.couchdb
-        includeEngines 'junit-jupiter'
+        includeTags "couchdb"
     }
 }
 
@@ -202,7 +201,7 @@ def hasTestsOfCategory(Set testSrc, String category) {
                 src.eachFileRecurse { file ->
                     if (file ==~ /.*Tests\.\w+/) {
                         file.readLines().parallelStream().forEach() { line ->
-                            def m = line =~ /^\s*@Category\((\w+)Category\.class\)\s*$/
+                            def m = line =~ /^\s*@Tag\("(\w+)"\)\s*$/
                             if (m) {
                                 tags.addAll(m.collect { it[1] })
                             }

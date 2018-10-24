@@ -1,7 +1,6 @@
 package org.apereo.cas.authentication;
 
 import org.apereo.cas.authentication.principal.PrincipalFactory;
-import org.apereo.cas.category.CouchDbCategory;
 import org.apereo.cas.config.CasCoreAuthenticationConfiguration;
 import org.apereo.cas.config.CasCoreAuthenticationHandlersConfiguration;
 import org.apereo.cas.config.CasCoreAuthenticationMetadataConfiguration;
@@ -27,9 +26,9 @@ import lombok.Getter;
 import lombok.val;
 import org.junit.ClassRule;
 import org.junit.Rule;
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.pac4j.couch.profile.CouchProfile;
 import org.pac4j.couch.profile.service.CouchProfileService;
@@ -85,7 +84,7 @@ import static org.junit.Assert.*;
     "cas.authn.couchDb.passwordAttribute=password",
     "cas.authn.pac4j.typedIdUsed=false"
 })
-@Category(CouchDbCategory.class)
+@Tag("couchdb")
 public class CouchDbAuthenticationHandlerTests {
     @ClassRule
     public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();

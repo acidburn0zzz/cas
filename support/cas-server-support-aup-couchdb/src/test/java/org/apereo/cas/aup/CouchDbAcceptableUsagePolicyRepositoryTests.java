@@ -1,6 +1,5 @@
 package org.apereo.cas.aup;
 
-import org.apereo.cas.category.CouchDbCategory;
 import org.apereo.cas.config.CasAcceptableUsagePolicyCouchDbConfiguration;
 import org.apereo.cas.config.CasCouchDbCoreConfiguration;
 import org.apereo.cas.couchdb.core.CouchDbConnectorFactory;
@@ -9,9 +8,9 @@ import org.apereo.cas.util.junit.ConditionalIgnore;
 import org.apereo.cas.util.junit.RunningContinuousIntegrationCondition;
 
 import lombok.Getter;
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
@@ -25,7 +24,7 @@ import org.springframework.test.context.TestPropertySource;
  */
 @Import({CasCouchDbCoreConfiguration.class, CasAcceptableUsagePolicyCouchDbConfiguration.class})
 @TestPropertySource(properties = "cas.acceptableUsagePolicy.couchDb.asynchronous=false")
-@Category(CouchDbCategory.class)
+@Tag("couchdb")
 @ConditionalIgnore(condition = RunningContinuousIntegrationCondition.class)
 @Getter
 public class CouchDbAcceptableUsagePolicyRepositoryTests extends BaseAcceptableUsagePolicyRepositoryTests {

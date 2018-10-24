@@ -24,12 +24,10 @@ import org.apereo.cas.config.support.CasWebApplicationServiceFactoryConfiguratio
 import org.apereo.cas.logout.config.CasCoreLogoutConfiguration;
 import org.apereo.cas.mock.MockTicketGrantingTicket;
 import org.apereo.cas.util.CollectionUtils;
-import org.apereo.cas.util.junit.ConditionalIgnore;
-import org.apereo.cas.util.junit.ConditionalIgnoreRule;
-import org.apereo.cas.util.junit.RunningContinuousIntegrationCondition;
+import org.apereo.cas.util.junit.EnabledIfContinuousIntegration;
+import org.apereo.cas.util.junit.EnabledIfPortOpen;
 
 import lombok.val;
-import org.junit.Rule;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +48,8 @@ import static org.junit.Assert.*;
  * @author Misagh Moayyed
  * @since 5.3.0
  */
-@ConditionalIgnore(condition = RunningContinuousIntegrationCondition.class, port = 8000)
+@EnabledIfContinuousIntegration
+@EnabledIfPortOpen(port = 8000)
 @TestPropertySource(locations = "classpath:/dynamodb-ticketregistry.properties")
 @SpringBootTest(classes = {
     DynamoDbTicketRegistryConfiguration.class,
@@ -77,9 +76,6 @@ import static org.junit.Assert.*;
 @Category(DynamoDbCategory.class)
 @ExtendWith(SpringExtension.class)
 public class DynamoDbTicketRegistryFacilitatorTests {
-
-    @Rule
-    public final ConditionalIgnoreRule conditionalIgnoreRule = new ConditionalIgnoreRule();
 
     @Autowired
     @Qualifier("dynamoDbTicketRegistryFacilitator")

@@ -3,9 +3,7 @@ package org.apereo.cas.support.x509.rest;
 import org.apereo.cas.adaptors.x509.authentication.principal.X509CertificateCredential;
 
 import lombok.val;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.core.io.ClassPathResource;

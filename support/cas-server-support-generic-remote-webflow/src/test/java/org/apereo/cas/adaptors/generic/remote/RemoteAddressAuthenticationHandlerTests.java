@@ -27,15 +27,13 @@ import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 import org.apereo.cas.web.flow.config.CasWebflowContextConfiguration;
 
 import lombok.val;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.Assert.*;
 
@@ -72,13 +70,8 @@ import static org.junit.Assert.*;
     CasCoreAuthenticationPrincipalConfiguration.class
 },
     properties = "cas.authn.remoteAddress.ipAddressRange=192.168.1.0/255.255.255.0")
+@ExtendWith(SpringExtension.class)
 public class RemoteAddressAuthenticationHandlerTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("remoteAddressAuthenticationHandler")
     private AuthenticationHandler remoteAddressAuthenticationHandler;

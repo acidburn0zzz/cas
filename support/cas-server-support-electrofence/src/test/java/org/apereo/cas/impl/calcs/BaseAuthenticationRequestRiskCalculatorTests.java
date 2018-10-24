@@ -34,9 +34,8 @@ import org.apereo.cas.util.io.SmsSender;
 import org.apereo.cas.web.config.CasCookieConfiguration;
 import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -46,8 +45,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * This is {@link BaseAuthenticationRequestRiskCalculatorTests}.
@@ -86,13 +84,8 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
     CasCoreEventsConfiguration.class})
 @DirtiesContext
 @EnableScheduling
+@ExtendWith(SpringExtension.class)
 public abstract class BaseAuthenticationRequestRiskCalculatorTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     protected ConfigurableApplicationContext applicationContext;
 

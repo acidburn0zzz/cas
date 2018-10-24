@@ -5,14 +5,12 @@ import org.apereo.cas.authentication.MultifactorAuthenticationProviderBypass;
 import org.apereo.cas.util.CollectionUtils;
 
 import lombok.val;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.Assert.*;
 
@@ -23,13 +21,8 @@ import static org.junit.Assert.*;
  * @since 5.3.0
  */
 @DirtiesContext
+@ExtendWith(SpringExtension.class)
 public class DefaultMultifactorAuthenticationContextValidatorTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     private ConfigurableApplicationContext applicationContext;
 

@@ -17,12 +17,10 @@ import org.apereo.cas.web.config.CasCookieConfiguration;
 import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 import org.apereo.cas.web.flow.config.CasWebflowContextConfiguration;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * This is {@link BaseAcceptableUsagePolicyActionTests}.
@@ -49,11 +47,6 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
     CasCoreAuthenticationPrincipalConfiguration.class,
     CasPersonDirectoryTestConfiguration.class
 })
+@ExtendWith(SpringExtension.class)
 public abstract class BaseAcceptableUsagePolicyActionTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
 }

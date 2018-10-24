@@ -9,11 +9,11 @@ import org.apereo.cas.util.CollectionUtils;
 import org.apereo.cas.util.RandomUtils;
 
 import lombok.val;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,8 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,15 +47,10 @@ import static org.junit.Assert.*;
     DatabaseAuthenticationTestConfiguration.class
 })
 @DirtiesContext
+@ExtendWith(SpringExtension.class)
 public class QueryDatabaseAuthenticationHandlerTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
     private static final String SQL = "SELECT * FROM casusers where username=?";
     private static final String PASSWORD_FIELD = "password";
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

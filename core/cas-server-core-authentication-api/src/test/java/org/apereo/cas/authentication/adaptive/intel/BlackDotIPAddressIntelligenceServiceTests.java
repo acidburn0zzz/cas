@@ -6,12 +6,11 @@ import org.apereo.cas.util.junit.ConditionalIgnoreRule;
 import org.apereo.cas.util.junit.RunningStandaloneCondition;
 
 import lombok.val;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.annotation.IfProfileValue;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.webflow.test.MockRequestContext;
 
 import static org.junit.Assert.*;
@@ -24,13 +23,8 @@ import static org.junit.Assert.*;
  */
 @ConditionalIgnore(condition = RunningStandaloneCondition.class)
 @IfProfileValue(name = "blackDotEnabled", value = "true")
+@ExtendWith(SpringExtension.class)
 public class BlackDotIPAddressIntelligenceServiceTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Rule
     public final ConditionalIgnoreRule conditionalIgnoreRule = new ConditionalIgnoreRule();
 

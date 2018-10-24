@@ -20,9 +20,6 @@ import static org.junit.Assert.*;
  * @since 6.0.0
  */
 public class SurrogatePrincipalElectionStrategyTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void verifyOperation() {
         val strategy = new SurrogatePrincipalElectionStrategy();

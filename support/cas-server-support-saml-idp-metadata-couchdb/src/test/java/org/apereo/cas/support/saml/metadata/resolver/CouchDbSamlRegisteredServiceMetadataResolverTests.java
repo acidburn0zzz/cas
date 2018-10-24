@@ -42,12 +42,11 @@ import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.io.IOUtils;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -56,8 +55,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.io.IOException;
@@ -113,13 +111,8 @@ import static org.junit.Assert.*;
 @EnableTransactionManagement(proxyTargetClass = true)
 @Slf4j
 @TestPropertySource(properties = "cas.authn.samlIdp.metadata.location=classpath:")
+@ExtendWith(SpringExtension.class)
 public class CouchDbSamlRegisteredServiceMetadataResolverTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("couchDbSamlRegisteredServiceMetadataResolver")
     private SamlRegisteredServiceMetadataResolver resolver;

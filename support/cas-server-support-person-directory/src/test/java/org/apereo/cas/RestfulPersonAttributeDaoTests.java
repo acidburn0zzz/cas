@@ -6,12 +6,11 @@ import org.apereo.cas.util.MockWebServer;
 
 import lombok.val;
 import org.apereo.services.persondir.IPersonAttributeDao;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,8 +18,7 @@ import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.charset.StandardCharsets;
 
@@ -40,13 +38,8 @@ import static org.junit.Assert.*;
     "cas.authn.attributeRepository.rest[0].url=http://localhost:8085"
 })
 @Category(RestfulApiCategory.class)
+@ExtendWith(SpringExtension.class)
 public class RestfulPersonAttributeDaoTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("attributeRepository")
     protected IPersonAttributeDao attributeRepository;

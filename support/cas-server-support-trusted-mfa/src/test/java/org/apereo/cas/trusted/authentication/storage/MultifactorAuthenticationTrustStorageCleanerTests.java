@@ -22,9 +22,6 @@ import java.time.LocalDateTime;
 @Getter
 public class MultifactorAuthenticationTrustStorageCleanerTests extends AbstractMultifactorAuthenticationTrustStorageTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("mfaTrustEngine")
     protected MultifactorAuthenticationTrustStorage mfaTrustEngine;

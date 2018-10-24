@@ -20,15 +20,13 @@ import org.apereo.cas.config.support.CasWebApplicationServiceFactoryConfiguratio
 import org.apereo.cas.logout.config.CasCoreLogoutConfiguration;
 import org.apereo.cas.ticket.registry.TicketRegistry;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * This is {@link AbstractTicketMessageQueueCommandTests}.
@@ -57,13 +55,8 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
     AopAutoConfiguration.class,
     RefreshAutoConfiguration.class,
     CasCoreWebConfiguration.class})
+@ExtendWith(SpringExtension.class)
 public abstract class AbstractTicketMessageQueueCommandTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("ticketRegistry")
     protected TicketRegistry ticketRegistry;

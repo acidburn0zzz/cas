@@ -42,9 +42,6 @@ import static org.mockito.Mockito.*;
  */
 @TestPropertySource(properties = "cas.authn.adaptive.requireMultifactor.mfa-dummy=MSIE")
 public class AdaptiveMultifactorAuthenticationPolicyEventResolverTests extends BaseCasWebflowMultifactorAuthenticationTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("adaptiveAuthenticationPolicyWebflowEventResolver")
     protected CasWebflowEventResolver resolver;

@@ -52,9 +52,6 @@ public class OAuth20AuthorizeControllerTests extends AbstractOAuth20Tests {
     private static final String SERVICE_NAME = "serviceName";
     private static final String STATE = "state";
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("authorizeController")
     private OAuth20AuthorizeEndpointController oAuth20AuthorizeEndpointController;

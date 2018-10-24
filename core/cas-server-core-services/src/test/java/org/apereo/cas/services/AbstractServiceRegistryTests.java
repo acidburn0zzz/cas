@@ -17,12 +17,10 @@ import org.joda.time.DateTimeUtils;
 import org.jooq.lambda.Unchecked;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -47,17 +45,9 @@ import static org.junit.Assert.*;
  */
 @Getter
 @RequiredArgsConstructor
+@ExtendWith(SpringExtension.class)
 public abstract class AbstractServiceRegistryTests {
     public static final int LOAD_SIZE = 1;
-
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Rule
     public final ConditionalIgnoreRule conditionalIgnoreRule = new ConditionalIgnoreRule();

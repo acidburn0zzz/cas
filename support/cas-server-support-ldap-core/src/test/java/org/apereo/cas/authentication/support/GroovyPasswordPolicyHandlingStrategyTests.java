@@ -5,17 +5,16 @@ import org.apereo.cas.authentication.support.password.PasswordPolicyConfiguratio
 import org.apereo.cas.config.CasCoreUtilConfiguration;
 
 import lombok.val;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.rules.ExpectedException;
 import org.ldaptive.auth.AuthenticationResponse;
 import org.ldaptive.auth.AuthenticationResultCode;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.security.auth.login.AccountExpiredException;
 
@@ -32,13 +31,8 @@ import static org.mockito.Mockito.*;
     RefreshAutoConfiguration.class,
     CasCoreUtilConfiguration.class
 })
+@ExtendWith(SpringExtension.class)
 public class GroovyPasswordPolicyHandlingStrategyTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

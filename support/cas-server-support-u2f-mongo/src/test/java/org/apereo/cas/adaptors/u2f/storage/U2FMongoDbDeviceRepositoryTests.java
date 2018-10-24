@@ -4,17 +4,15 @@ import org.apereo.cas.category.MongoDbCategory;
 import org.apereo.cas.config.U2FConfiguration;
 import org.apereo.cas.config.U2FMongoDbConfiguration;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * This is {@link U2FMongoDbDeviceRepositoryTests}.
@@ -37,13 +35,8 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
     "cas.authn.mfa.u2f.mongo.authenticationDatabaseName=admin",
     "cas.authn.mfa.u2f.mongo.dropCollection=true"
     })
+@ExtendWith(SpringExtension.class)
 public class U2FMongoDbDeviceRepositoryTests extends AbstractU2FDeviceRepositoryTests {
-
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("u2fDeviceRepository")

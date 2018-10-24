@@ -22,9 +22,6 @@ import static org.junit.Assert.*;
  */
 public class RegisteredServicePublicKeyCipherExecutorTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void verifyCipherUnableToEncodeForStringIsTooLong() {
         val svc = getService("classpath:keys/RSA1024Public.key");

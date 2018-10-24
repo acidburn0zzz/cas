@@ -5,9 +5,8 @@ import org.apereo.cas.configuration.config.CasCoreBootstrapStandaloneConfigurati
 import org.apereo.cas.configuration.config.CasCoreBootstrapStandaloneLocatorConfiguration;
 
 import lombok.val;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +15,7 @@ import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.Assert.*;
 
@@ -33,13 +31,8 @@ import static org.junit.Assert.*;
     CasCoreBootstrapStandaloneConfiguration.class
 })
 @TestPropertySource(properties = {"spring.cloud.config.enabled=false", "spring.application.name=CAS"})
+@ExtendWith(SpringExtension.class)
 public class DefaultCasConfigurationPropertiesSourceLocatorTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     static {
         System.setProperty("spring.application.name", "cas");
         System.setProperty("spring.profiles.active", "standalone,dev");

@@ -29,9 +29,6 @@ import static org.junit.Assert.*;
 public class X509RestHttpRequestHeaderCredentialFactoryTests {
     private static final String HEADER = "ssl_client_cert";
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private X509RestHttpRequestHeaderCredentialFactory factory = new X509RestHttpRequestHeaderCredentialFactory(new RequestHeaderX509CertificateExtractor(HEADER));
 
     @Test

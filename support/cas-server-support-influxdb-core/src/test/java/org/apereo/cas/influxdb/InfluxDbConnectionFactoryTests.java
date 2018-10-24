@@ -10,16 +10,15 @@ import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
 import org.influxdb.dto.Point;
 import org.influxdb.impl.InfluxDBResultMapper;
-import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Instant;
 import java.util.concurrent.TimeUnit;
@@ -35,15 +34,10 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = RefreshAutoConfiguration.class)
 @Category(InfluxDbCategory.class)
 @ConditionalIgnore(condition = RunningContinuousIntegrationCondition.class)
+@ExtendWith(SpringExtension.class)
 public class InfluxDbConnectionFactoryTests {
 
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
     private static final String CAS_EVENTS_DATABASE = "casEventsDatabase";
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Rule
     public final ConditionalIgnoreRule conditionalIgnoreRule = new ConditionalIgnoreRule();

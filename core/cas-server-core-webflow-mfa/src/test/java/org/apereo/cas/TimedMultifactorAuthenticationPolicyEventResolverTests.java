@@ -42,9 +42,6 @@ import static org.junit.Assert.*;
 })
 public class TimedMultifactorAuthenticationPolicyEventResolverTests extends BaseCasWebflowMultifactorAuthenticationTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("timedAuthenticationPolicyWebflowEventResolver")
     protected CasWebflowEventResolver resolver;

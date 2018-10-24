@@ -28,8 +28,7 @@ import org.apereo.cas.web.config.CasCookieConfiguration;
 import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 import org.apereo.cas.web.flow.config.CasMultifactorAuthenticationWebflowConfiguration;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,8 +37,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * This is {@link BaseCasWebflowMultifactorAuthenticationTests}.
@@ -84,13 +82,8 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
 @EnableAspectJAutoProxy
 @DirtiesContext
 @EnableScheduling
+@ExtendWith(SpringExtension.class)
 public abstract class BaseCasWebflowMultifactorAuthenticationTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     protected CasConfigurationProperties casProperties;
 

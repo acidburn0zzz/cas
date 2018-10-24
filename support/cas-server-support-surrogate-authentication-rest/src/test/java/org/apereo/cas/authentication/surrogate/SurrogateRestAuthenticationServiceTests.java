@@ -36,8 +36,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.val;
-import org.junit.ClassRule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,7 +45,7 @@ import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.nio.charset.StandardCharsets;
 
@@ -89,10 +89,8 @@ import static org.junit.Assert.*;
 })
 @TestPropertySource(properties = "cas.authn.surrogate.rest.url=http://localhost:9301")
 @Getter
+@ExtendWith(SpringExtension.class)
 public class SurrogateRestAuthenticationServiceTests extends BaseSurrogateAuthenticationServiceTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
     private static final ObjectMapper MAPPER = new ObjectMapper()
         .findAndRegisterModules()
         .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, false)

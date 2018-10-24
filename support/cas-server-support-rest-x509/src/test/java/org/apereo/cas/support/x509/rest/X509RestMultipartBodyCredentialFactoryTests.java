@@ -26,9 +26,6 @@ import static org.junit.Assert.*;
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class X509RestMultipartBodyCredentialFactoryTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     private X509RestMultipartBodyCredentialFactory factory = new X509RestMultipartBodyCredentialFactory();
 
     @Test

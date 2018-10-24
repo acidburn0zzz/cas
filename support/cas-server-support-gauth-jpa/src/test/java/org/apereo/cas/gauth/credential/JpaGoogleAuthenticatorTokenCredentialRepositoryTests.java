@@ -78,9 +78,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ContextConfiguration(initializers = EnvironmentConversionServiceInitializer.class)
 @Getter
 public class JpaGoogleAuthenticatorTokenCredentialRepositoryTests extends BaseOneTimeTokenCredentialRepositoryTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired(required = false)
     @Qualifier("googleAuthenticatorAccountRegistry")
     private OneTimeTokenCredentialRepository registry;

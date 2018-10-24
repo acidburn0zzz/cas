@@ -24,12 +24,11 @@ import org.apereo.cas.util.CollectionUtils;
 
 import lombok.Getter;
 import lombok.val;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.pac4j.couch.profile.CouchProfile;
 import org.pac4j.couch.profile.service.CouchProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,7 @@ import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -85,13 +83,8 @@ import static org.junit.Assert.*;
     "cas.authn.pac4j.typedIdUsed=false"
 })
 @Tag("couchdb")
+@ExtendWith(SpringExtension.class)
 public class CouchDbAuthenticationHandlerTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("authenticationCouchDbFactory")
     private CouchDbConnectorFactory couchDbFactory;

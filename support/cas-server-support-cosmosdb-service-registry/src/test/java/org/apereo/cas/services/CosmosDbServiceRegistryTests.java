@@ -4,18 +4,16 @@ import org.apereo.cas.category.CosmosDbCategory;
 import org.apereo.cas.config.CosmosDbServiceRegistryConfiguration;
 
 import lombok.val;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.test.annotation.IfProfileValue;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
@@ -38,13 +36,8 @@ import static org.junit.Assert.*;
     "cas.serviceRegistry.cosmosDb.database=TestDB",
     "cas.serviceRegistry.cosmosDb.dropCollection=true"
 })
+@ExtendWith(SpringExtension.class)
 public class CosmosDbServiceRegistryTests {
-
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("cosmosDbServiceRegistry")

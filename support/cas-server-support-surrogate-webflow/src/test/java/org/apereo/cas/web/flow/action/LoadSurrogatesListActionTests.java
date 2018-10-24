@@ -36,9 +36,6 @@ import static org.mockito.Mockito.*;
  */
 public class LoadSurrogatesListActionTests extends BaseSurrogateInitialAuthenticationActionTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("loadSurrogatesListAction")
     private Action loadSurrogatesListAction;

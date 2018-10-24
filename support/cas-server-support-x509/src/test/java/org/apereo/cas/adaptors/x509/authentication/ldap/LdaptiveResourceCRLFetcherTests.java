@@ -26,10 +26,9 @@ import org.apereo.cas.util.crypto.CertUtils;
 import lombok.val;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,8 +38,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 /**
@@ -69,14 +67,9 @@ import org.springframework.test.context.junit4.rules.SpringMethodRule;
     CasCoreServicesConfiguration.class})
 @TestPropertySource(locations = {"classpath:/x509.properties"})
 @EnableScheduling
+@ExtendWith(SpringExtension.class)
 public class LdaptiveResourceCRLFetcherTests extends AbstractX509LdapTests implements InitializingBean {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
     private static final int LDAP_PORT = 1389;
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
 
     @Autowired
     @Qualifier("crlFetcher")

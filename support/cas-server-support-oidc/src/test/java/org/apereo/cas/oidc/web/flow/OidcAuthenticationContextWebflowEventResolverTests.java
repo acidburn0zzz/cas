@@ -37,9 +37,6 @@ import static org.junit.Assert.*;
  * @since 5.3.0
  */
 public class OidcAuthenticationContextWebflowEventResolverTests extends AbstractOidcTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("oidcAuthenticationContextWebflowEventResolver")
     protected CasWebflowEventResolver resolver;

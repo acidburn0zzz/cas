@@ -4,16 +4,14 @@ import org.apereo.cas.config.CasPersonDirectoryConfiguration;
 
 import lombok.val;
 import org.apereo.services.persondir.IPersonAttributeDao;
-import org.junit.ClassRule;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.Assert.*;
 
@@ -31,13 +29,8 @@ import static org.junit.Assert.*;
     "cas.authn.attributeRepository.stub.attributes.givenName=givenName",
     "cas.authn.attributeRepository.stub.attributes.eppn=eppn"
 })
+@ExtendWith(SpringExtension.class)
 public class CachingAttributeRepositoryTests {
-    @ClassRule
-    public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-    @Rule
-    public final SpringMethodRule springMethodRule = new SpringMethodRule();
-
     @Autowired
     @Qualifier("cachingAttributeRepository")
     private IPersonAttributeDao cachingAttributeRepository;

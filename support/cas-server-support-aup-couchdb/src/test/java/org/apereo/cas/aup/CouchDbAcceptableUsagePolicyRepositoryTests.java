@@ -9,9 +9,9 @@ import org.apereo.cas.util.junit.ConditionalIgnore;
 import org.apereo.cas.util.junit.RunningContinuousIntegrationCondition;
 
 import lombok.Getter;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
@@ -42,13 +42,13 @@ public class CouchDbAcceptableUsagePolicyRepositoryTests extends BaseAcceptableU
     @Qualifier("acceptableUsagePolicyRepository")
     private AcceptableUsagePolicyRepository acceptableUsagePolicyRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         aupCouchDbFactory.getCouchDbInstance().createDatabaseIfNotExists(aupCouchDbFactory.getCouchDbConnector().getDatabaseName());
         couchDbRepository.initStandardDesignDocument();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         aupCouchDbFactory.getCouchDbInstance().deleteDatabase(aupCouchDbFactory.getCouchDbConnector().getDatabaseName());
     }

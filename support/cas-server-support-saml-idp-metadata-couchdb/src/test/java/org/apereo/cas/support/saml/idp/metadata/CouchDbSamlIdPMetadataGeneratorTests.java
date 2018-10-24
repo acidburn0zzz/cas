@@ -39,12 +39,12 @@ import org.apereo.cas.validation.config.CasCoreValidationConfiguration;
 import org.apereo.cas.web.config.CasCookieConfiguration;
 import org.apereo.cas.web.flow.config.CasCoreWebflowConfiguration;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
@@ -126,13 +126,13 @@ public class CouchDbSamlIdPMetadataGeneratorTests {
     @Qualifier("samlIdPMetadataCouchDbRepository")
     private SamlIdPMetadataCouchDbRepository couchDbRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         couchDbFactory.getCouchDbInstance().createDatabaseIfNotExists(couchDbFactory.getCouchDbConnector().getDatabaseName());
         couchDbRepository.initStandardDesignDocument();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         couchDbFactory.getCouchDbInstance().deleteDatabase(couchDbFactory.getCouchDbConnector().getDatabaseName());
     }

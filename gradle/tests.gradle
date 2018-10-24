@@ -1,7 +1,7 @@
 task testCassandra(type: Test) {
     enabled = shouldTest(project.sourceSets.test.java.srcDirs, "Cassandra")
     useJUnitPlatform {
-        includeTags "org.apereo.cas.category.CassandraCategory"
+        includeTags "cassandra"
     }
 }
 
@@ -36,7 +36,8 @@ task testCouchbase(type: Test) {
 task testCouchDb(type: Test) {
     enabled = shouldTest(project.sourceSets.test.java.srcDirs, "CouchDb")
     useJUnitPlatform {
-        includeTags "org.apereo.cas.category.CouchDbCategory"
+        includeTags rootProject.ext.couchdb
+        includeEngines 'junit-jupiter'
     }
 }
 
@@ -147,15 +148,14 @@ task testRedis(type: Test) {
 test {
     include "**/*Tests.*"
     useJUnitPlatform {
-        setExcludeTags Set.of(
-                "org.apereo.cas.category.CassandraCategory",
+        excludeTags "org.apereo.cas.category.CassandraCategory",
                 "org.apereo.cas.category.CosmosDbCategory",
                 "org.apereo.cas.category.CouchbaseCategory",
                 "org.apereo.cas.category.DynamoDbCategory",
                 "org.apereo.cas.category.FileSystemCategory",
                 "org.apereo.cas.category.IgniteCategory",
                 "org.apereo.cas.category.InfluxDbCategory",
-                "org.apereo.cas.category.CouchDbCategory",
+                "couchdb",
                 "org.apereo.cas.category.LdapCategory",
                 "org.apereo.cas.category.MailCategory",
                 "org.apereo.cas.category.MariaDbCategory",
@@ -167,7 +167,7 @@ test {
                 "org.apereo.cas.category.RedisCategory",
                 "org.apereo.cas.category.RadiusCategory",
                 "org.apereo.cas.category.AmazonWebServicesS3Category",
-                "org.apereo.cas.category.RestfulApiCategory")
+                "org.apereo.cas.category.RestfulApiCategory"
     }
     enabled = "SIMPLE".equalsIgnoreCase(rootProject.testCategoryType) && !Boolean.getBoolean("skipTests")
 }

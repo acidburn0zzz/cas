@@ -4,8 +4,8 @@ import org.apereo.cas.category.DynamoDbCategory;
 import org.apereo.cas.configuration.model.support.dynamodb.AbstractDynamoDbProperties;
 
 import lombok.val;
-import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 

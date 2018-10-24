@@ -12,8 +12,8 @@ import lombok.SneakyThrows;
 import lombok.val;
 import org.apereo.inspektr.common.web.ClientInfo;
 import org.apereo.inspektr.common.web.ClientInfoHolder;
-import org.junit.BeforeClass;
 import org.junit.experimental.categories.Category;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Import;
@@ -48,7 +48,7 @@ public class LdapAcceptableUsagePolicyRepositoryTests extends BaseAcceptableUsag
     @Qualifier("acceptableUsagePolicyRepository")
     protected AcceptableUsagePolicyRepository acceptableUsagePolicyRepository;
 
-    @BeforeClass
+    @BeforeAll
     @SneakyThrows
     public static void bootstrap() {
         ClientInfoHolder.setClientInfo(new ClientInfo(new MockHttpServletRequest()));

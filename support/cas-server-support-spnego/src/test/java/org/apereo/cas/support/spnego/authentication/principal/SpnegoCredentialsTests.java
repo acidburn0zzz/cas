@@ -3,7 +3,7 @@ package org.apereo.cas.support.spnego.authentication.principal;
 import org.apereo.cas.authentication.principal.DefaultPrincipalFactory;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.*;
 

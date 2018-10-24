@@ -10,8 +10,8 @@ import org.apereo.cas.ticket.TicketGrantingTicketImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.val;
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class RememberMeDelegatingExpirationPolicyTests {
 
     private RememberMeDelegatingExpirationPolicy p;
 
-    @Before
+    @BeforeEach
     public void initialize() {
         val rememberMe = new MultiTimeUseOrTimeoutExpirationPolicy(1, REMEMBER_ME_TTL);
         p = new RememberMeDelegatingExpirationPolicy(rememberMe);

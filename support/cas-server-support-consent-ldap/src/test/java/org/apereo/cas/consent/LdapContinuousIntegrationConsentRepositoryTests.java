@@ -8,7 +8,7 @@ import org.apereo.cas.util.junit.RunningContinuousIntegrationCondition;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import lombok.SneakyThrows;
 import lombok.val;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.TestPropertySource;
@@ -35,7 +35,7 @@ public class LdapContinuousIntegrationConsentRepositoryTests extends BaseLdapCon
     @Autowired
     private CasConfigurationProperties casProperties;
 
-    @BeforeClass
+    @BeforeAll
     @SneakyThrows
     public static void bootstrap() {
         val localhost = new LDAPConnection("localhost", LDAP_PORT,

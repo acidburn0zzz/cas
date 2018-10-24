@@ -40,7 +40,7 @@ import org.apereo.cas.web.support.CookieRetrievingCookieGenerator;
 import org.apereo.cas.web.support.DefaultArgumentExtractor;
 
 import lombok.val;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.pac4j.core.client.BaseClient;
 import org.pac4j.core.client.Clients;
 import org.pac4j.core.context.Pac4jConstants;

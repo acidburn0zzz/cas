@@ -5,10 +5,8 @@ import org.apereo.cas.authentication.support.password.PasswordPolicyConfiguratio
 import org.apereo.cas.config.CasCoreUtilConfiguration;
 
 import lombok.val;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.ldaptive.auth.AuthenticationResponse;
 import org.ldaptive.auth.AuthenticationResultCode;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,9 +31,6 @@ import static org.mockito.Mockito.*;
 })
 @ExtendWith(SpringExtension.class)
 public class GroovyPasswordPolicyHandlingStrategyTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void verifyStrategySupportsDefault() {
         val resource = new ClassPathResource("lppe-strategy.groovy");
@@ -57,7 +52,8 @@ public class GroovyPasswordPolicyHandlingStrategyTests {
         val resource = new ClassPathResource("lppe-strategy-throws-error.groovy");
         val s = new GroovyPasswordPolicyHandlingStrategy(resource);
         val res = mock(AuthenticationResponse.class);
-        thrown.expect(AccountExpiredException.class);
-        s.handle(res, mock(PasswordPolicyConfiguration.class));
+        assertThrows(AccountExpiredException.class, () -> {
+            s.handle(res, mock(PasswordPolicyConfiguration.class));
+        });
     }
 }

@@ -13,10 +13,8 @@ import org.apereo.cas.config.SurrogateAuthenticationConfiguration;
 import org.apereo.cas.services.RegisteredServiceTestUtils;
 
 import lombok.val;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,9 +47,6 @@ import static org.mockito.Mockito.*;
 @TestPropertySource(properties = {"cas.authn.surrogate.simple.surrogates.casuser=cassurrogate"})
 @ExtendWith(SpringExtension.class)
 public class SurrogateAuthenticationPostProcessorTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     @Qualifier("surrogateAuthenticationPostProcessor")
     private AuthenticationPostProcessor surrogateAuthenticationPostProcessor;
@@ -70,8 +65,9 @@ public class SurrogateAuthenticationPostProcessorTests {
         val transaction = DefaultAuthenticationTransaction.of(RegisteredServiceTestUtils.getService("service"), c);
         val builder = mock(AuthenticationBuilder.class);
         when(builder.build()).thenReturn(CoreAuthenticationTestUtils.getAuthentication("casuser"));
-        thrown.expect(AuthenticationException.class);
-        surrogateAuthenticationPostProcessor.process(builder, transaction);
+        assertThrows(AuthenticationException.class, () -> {
+            surrogateAuthenticationPostProcessor.process(builder, transaction);
+        });
     }
 
     @Test

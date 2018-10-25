@@ -4,10 +4,8 @@ import org.apereo.cas.authentication.CoreAuthenticationTestUtils;
 
 import lombok.val;
 import org.apache.commons.io.FileUtils;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
@@ -31,9 +29,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 public class GroovyScriptAuthenticationPolicyTests {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Autowired
     private ResourceLoader resourceLoader;
 
@@ -55,8 +50,9 @@ public class GroovyScriptAuthenticationPolicyTests {
             + " return Optional.of(new AuthenticationException())\n"
             + '}';
         val p = new GroovyScriptAuthenticationPolicy(resourceLoader, script);
-        thrown.expect(GeneralSecurityException.class);
-        p.isSatisfiedBy(CoreAuthenticationTestUtils.getAuthentication(), new LinkedHashSet<>());
+        assertThrows(GeneralSecurityException.class, () -> {
+            p.isSatisfiedBy(CoreAuthenticationTestUtils.getAuthentication(), new LinkedHashSet<>());
+        });
     }
 
     @Test
@@ -71,7 +67,8 @@ public class GroovyScriptAuthenticationPolicyTests {
         val scriptFile = new File(FileUtils.getTempDirectoryPath(), "script.groovy");
         FileUtils.write(scriptFile, script, StandardCharsets.UTF_8);
         val p = new GroovyScriptAuthenticationPolicy(resourceLoader, "file:" + scriptFile.getCanonicalPath());
-        thrown.expect(GeneralSecurityException.class);
-        p.isSatisfiedBy(CoreAuthenticationTestUtils.getAuthentication(), new LinkedHashSet<>());
+        assertThrows(GeneralSecurityException.class, () -> {
+            p.isSatisfiedBy(CoreAuthenticationTestUtils.getAuthentication(), new LinkedHashSet<>());
+        });
     }
 }

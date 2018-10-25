@@ -3,10 +3,8 @@ package org.apereo.cas.authentication;
 import org.apereo.cas.authentication.handler.support.SimpleTestUsernamePasswordAuthenticationHandler;
 
 import lombok.val;
-import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -21,9 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 public class SurrogatePrincipalResolverTests {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void verifyResolverDefault() {
         val resolver = new SurrogatePrincipalResolver(CoreAuthenticationTestUtils.getAttributeRepository());
@@ -46,8 +41,9 @@ public class SurrogatePrincipalResolverTests {
     public void verifyResolverSurrogateWithoutPrincipal() {
         val resolver = new SurrogatePrincipalResolver(CoreAuthenticationTestUtils.getAttributeRepository(), "cn");
         val credential = new SurrogateUsernamePasswordCredential();
-        thrown.expect(IllegalArgumentException.class);
-        resolver.resolve(credential);
+        assertThrows(IllegalArgumentException.class, () -> {
+            resolver.resolve(credential);
+        });
     }
 
     @Test

@@ -11,12 +11,10 @@ import lombok.val;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.util.ByteSource;
-import org.junit.Rule;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -54,9 +52,6 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
     private static final String EXPIRED_FIELD_NAME = "expired";
     private static final String DISABLED_FIELD_NAME = "disabled";
     private static final String NUM_ITERATIONS_FIELD_NAME = "numIterations";
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Autowired
     @Qualifier("dataSource")
@@ -119,10 +114,9 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
         val q = new QueryAndEncodeDatabaseAuthenticationHandler("", null, null, null, dataSource, ALG_NAME,
             buildSql(), PASSWORD_FIELD_NAME, "salt", null, null, "ops", 0, "");
 
-        this.thrown.expect(AccountNotFoundException.class);
-
-
-        q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword());
+        assertThrows(AccountNotFoundException.class, () -> {
+            q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword());
+        });
     }
 
     @Test
@@ -130,8 +124,9 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
         val q = new QueryAndEncodeDatabaseAuthenticationHandler("", null, null, null, dataSource, ALG_NAME,
             buildSql("makesNoSenseInSql"), PASSWORD_FIELD_NAME, "salt", null, null, "ops", 0, "");
 
-        this.thrown.expect(PreventedException.class);
-        q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword());
+        assertThrows(PreventedException.class, () -> {
+            q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword());
+        });
     }
 
     @Test
@@ -139,8 +134,9 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
         val q = new QueryAndEncodeDatabaseAuthenticationHandler("", null, null, null, dataSource, ALG_NAME,
             buildSql(), PASSWORD_FIELD_NAME, "salt", null, null, "ops", 0, "");
 
-        this.thrown.expect(FailedLoginException.class);
-        q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithDifferentUsernameAndPassword("user0", "password0"));
+        assertThrows(FailedLoginException.class, () -> {
+            q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithDifferentUsernameAndPassword("user0", "password0"));
+        });
     }
 
     @Test
@@ -160,8 +156,9 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
         val q = new QueryAndEncodeDatabaseAuthenticationHandler("", null, null, null, dataSource, ALG_NAME,
             buildSql(), PASSWORD_FIELD_NAME, "salt", EXPIRED_FIELD_NAME, null, NUM_ITERATIONS_FIELD_NAME, 0, STATIC_SALT);
 
-        this.thrown.expect(AccountPasswordMustChangeException.class);
-        q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword("user20"));
+        assertThrows(AccountPasswordMustChangeException.class, () -> {
+            q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword("user20"));
+        });
         throw new AssertionError("Shouldn't get here");
     }
 
@@ -170,8 +167,9 @@ public class QueryAndEncodeDatabaseAuthenticationHandlerTests {
         val q = new QueryAndEncodeDatabaseAuthenticationHandler("", null, null, null, dataSource, ALG_NAME,
             buildSql(), PASSWORD_FIELD_NAME, "salt", null, DISABLED_FIELD_NAME, NUM_ITERATIONS_FIELD_NAME, 0, STATIC_SALT);
 
-        this.thrown.expect(AccountDisabledException.class);
-        q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword("user21"));
+        assertThrows(AccountDisabledException.class, () -> {
+            q.authenticate(CoreAuthenticationTestUtils.getCredentialsWithSameUsernameAndPassword("user21"));
+        });
         throw new AssertionError("Shouldn't get here");
     }
 

@@ -37,7 +37,7 @@ import org.springframework.webflow.test.MockRequestContext;
 import javax.servlet.http.HttpServletResponse;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Base class for submission throttle tests.

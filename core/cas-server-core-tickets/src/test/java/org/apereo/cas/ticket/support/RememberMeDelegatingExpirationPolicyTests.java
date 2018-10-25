@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for RememberMeDelegatingExpirationPolicy.

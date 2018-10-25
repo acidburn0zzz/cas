@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.IntStream;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This is {@link BaseTicketRegistryTests}.
@@ -236,7 +236,7 @@ public abstract class BaseTicketRegistryTests {
             this.ticketRegistry.addTicket(new TicketGrantingTicketImpl(TicketGrantingTicket.PREFIX,
                 CoreAuthenticationTestUtils.getAuthentication(),
                 new NeverExpiresExpirationPolicy()));
-            assertFalse("Ticket was deleted.", this.ticketRegistry.deleteTicket(null) == 1);
+            assertFalse(this.ticketRegistry.deleteTicket(null) == 1, "Ticket was deleted.");
         } catch (final Exception e) {
             throw new AssertionError(EXCEPTION_CAUGHT_NONE_EXPECTED + e.getMessage(), e);
         }
@@ -246,7 +246,7 @@ public abstract class BaseTicketRegistryTests {
     public void verifyGetTicketsIsZero() {
         try {
             this.ticketRegistry.deleteAll();
-            assertEquals("The size of the empty registry is not zero.", 0, this.ticketRegistry.getTickets().size());
+            assertEquals(0, this.ticketRegistry.getTickets().size(), "The size of the empty registry is not zero.");
         } catch (final Exception e) {
             throw new AssertionError(EXCEPTION_CAUGHT_NONE_EXPECTED + e.getMessage(), e);
         }
@@ -271,8 +271,7 @@ public abstract class BaseTicketRegistryTests {
 
         try {
             val ticketRegistryTickets = this.ticketRegistry.getTickets();
-            assertEquals("The size of the registry is not the same as the collection.",
-                tickets.size(), ticketRegistryTickets.size());
+            assertEquals(tickets.size(), ticketRegistryTickets.size(), "The size of the registry is not the same as the collection.");
 
 
             tickets.stream().filter(ticket -> !ticketRegistryTickets.contains(ticket))

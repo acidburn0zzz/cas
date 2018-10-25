@@ -44,7 +44,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.security.GeneralSecurityException;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * This is {@link CouchDbAuthenticationHandlerTests}.

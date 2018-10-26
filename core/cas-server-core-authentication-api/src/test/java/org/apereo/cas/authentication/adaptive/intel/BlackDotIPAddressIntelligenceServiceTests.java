@@ -1,12 +1,11 @@
 package org.apereo.cas.authentication.adaptive.intel;
 
 import org.apereo.cas.configuration.model.core.authentication.AdaptiveAuthenticationProperties;
-import org.apereo.cas.util.junit.DisabledIfContinuousIntegration;
 
 import lombok.val;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.test.annotation.IfProfileValue;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.webflow.test.MockRequestContext;
 
@@ -18,9 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Misagh Moayyed
  * @since 6.0.0
  */
-@IfProfileValue(name = "blackDotEnabled", value = "true")
 @ExtendWith(SpringExtension.class)
-@DisabledIfContinuousIntegration
+@EnabledIfSystemProperty(named = "blackDotEnabled", matches = "true")
 public class BlackDotIPAddressIntelligenceServiceTests {
     @Test
     public void verifyBannedOperation() {

@@ -24,8 +24,7 @@ import org.apereo.cas.util.http.HttpMessageTests;
 import org.apereo.cas.util.http.SimpleHttpClientTests;
 import org.apereo.cas.util.io.CommunicationsManagerTests;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import org.junit.platform.suite.api.SelectClasses;
 
 /**
  * This is {@link AllUtilityTestsSuite}.
@@ -33,8 +32,7 @@ import org.junit.runners.Suite;
  * @author Misagh Moayyed
  * @since 5.3.0
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
+@SelectClasses({
     JsonWebKeySetStringCipherExecutorTests.class,
     ProtocolTicketCipherExecutorTests.class,
     TicketGrantingCookieCipherExecutorTests.class,

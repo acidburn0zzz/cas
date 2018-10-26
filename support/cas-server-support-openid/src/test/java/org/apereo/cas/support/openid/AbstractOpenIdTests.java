@@ -88,7 +88,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
     ThymeleafAutoConfiguration.class
 })
 @ExtendWith(SpringExtension.class)
-public class AbstractOpenIdTests {
+public abstract class AbstractOpenIdTests {
     @Autowired
     @Qualifier("serverManager")
     protected ServerManager serverManager;

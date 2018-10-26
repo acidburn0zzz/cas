@@ -128,8 +128,8 @@ public class DefaultCentralAuthenticationServiceTests extends AbstractCentralAut
         val ctx = CoreAuthenticationTestUtils.getAuthenticationResult(getAuthenticationSystemSupport(),
             getService("TestServiceAttributeForAuthzFails"));
 
-        val ticketId = getCentralAuthenticationService().createTicketGrantingTicket(ctx);
         assertThrows(PrincipalException.class, () -> {
+            val ticketId = getCentralAuthenticationService().createTicketGrantingTicket(ctx);
             getCentralAuthenticationService().grantServiceTicket(ticketId.getId(), getService("TestServiceAttributeForAuthzFails"), ctx);
         });
     }

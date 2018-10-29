@@ -92,7 +92,7 @@ public class DefaultAuthenticationResultBuilder implements AuthenticationResultB
             LOGGER.info("Authentication result cannot be produced because no authentication is recorded into in the chain. Returning null");
             return null;
         }
-        LOGGER.debug("Building an authentication result for authentication [{}] and service [{}]", authentication, service);
+        LOGGER.trace("Building an authentication result for authentication [{}] and service [{}]", authentication, service);
         val res = new DefaultAuthenticationResult(authentication, service);
         res.setCredentialProvided(!this.providedCredentials.isEmpty());
         return res;
@@ -117,11 +117,11 @@ public class DefaultAuthenticationResultBuilder implements AuthenticationResultB
         LOGGER.debug("Determined primary authentication principal to be [{}]", primaryPrincipal);
 
         authenticationBuilder.setAttributes(authenticationAttributes);
-        LOGGER.debug("Collected authentication attributes for this result are [{}]", authenticationAttributes);
+        LOGGER.trace("Collected authentication attributes for this result are [{}]", authenticationAttributes);
 
         authenticationBuilder.setAuthenticationDate(ZonedDateTime.now());
         val auth = authenticationBuilder.build();
-        LOGGER.debug("Authentication result commenced at [{}]", auth.getAuthenticationDate());
+        LOGGER.trace("Authentication result commenced at [{}]", auth.getAuthenticationDate());
         return auth;
     }
 
@@ -130,9 +130,9 @@ public class DefaultAuthenticationResultBuilder implements AuthenticationResultB
      * Based on that restriction, it's safe to simply grab the first principal id in the chain
      * when composing the authentication chain for the caller.
      */
-    private Principal getPrimaryPrincipal(final PrincipalElectionStrategy principalElectionStrategy,
-                                          final Set<Authentication> authentications,
-                                          final Map<String, Object> principalAttributes) {
+    private static Principal getPrimaryPrincipal(final PrincipalElectionStrategy principalElectionStrategy,
+                                                 final Set<Authentication> authentications,
+                                                 final Map<String, Object> principalAttributes) {
         return principalElectionStrategy.nominate(new LinkedHashSet<>(authentications), principalAttributes);
     }
 }

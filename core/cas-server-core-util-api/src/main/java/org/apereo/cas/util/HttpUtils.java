@@ -7,20 +7,19 @@ import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -37,6 +36,12 @@ import java.util.Map;
 @Slf4j
 @UtilityClass
 public class HttpUtils {
+
+    private static final int MAX_CONNECTIONS = 200;
+    private static final int MAX_CONNECTIONS_PER_ROUTE = 20;
+
+    private static final HttpClient HTTP_CLIENT = HttpClientBuilder.create().setMaxConnTotal(MAX_CONNECTIONS)
+            .setMaxConnPerRoute(MAX_CONNECTIONS_PER_ROUTE).build();
 
     /**
      * Execute http response.
@@ -132,16 +137,31 @@ public class HttpUtils {
                                        final Map<String, Object> headers,
                                        final String entity) {
         try {
-            val client = buildHttpClient(basicAuthUsername, basicAuthPassword);
             val uri = buildHttpUri(url, parameters);
             val request = getHttpRequestByMethod(method.toLowerCase().trim(), entity, uri);
             headers.forEach((k, v) -> request.addHeader(k, v.toString()));
             prepareHttpRequest(request, basicAuthUsername, basicAuthPassword, parameters);
-            return client.execute(request);
+            return HTTP_CLIENT.execute(request);
         } catch (final Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
         return null;
+    }
+
+    /**
+     * Close the response.
+     *
+     * @param response the response to close
+     */
+    public static void close(final HttpResponse response) {
+        if (response != null) {
+            val closeableHttpResponse = (CloseableHttpResponse) response;
+            try {
+                closeableHttpResponse.close();
+            } catch (final IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
     }
 
     @SneakyThrows
@@ -276,14 +296,14 @@ public class HttpUtils {
      * Execute post http response.
      *
      * @param url        the url
-     * @param jsonEntity the json entity
+     * @param entity the json entity
      * @param parameters the parameters
      * @return the http response
      */
     public static HttpResponse executePost(final String url,
-                                           final String jsonEntity,
+                                           final String entity,
                                            final Map<String, Object> parameters) {
-        return executePost(url, null, null, jsonEntity, parameters);
+        return executePost(url, null, null, entity, parameters);
     }
 
     /**
@@ -292,40 +312,21 @@ public class HttpUtils {
      * @param url               the url
      * @param basicAuthUsername the basic auth username
      * @param basicAuthPassword the basic auth password
-     * @param jsonEntity        the json entity
+     * @param entity        the json entity
      * @param parameters        the parameters
      * @return the http response
      */
     public static HttpResponse executePost(final String url,
                                            final String basicAuthUsername,
                                            final String basicAuthPassword,
-                                           final String jsonEntity,
+                                           final String entity,
                                            final Map<String, Object> parameters) {
         try {
-            return execute(url, HttpMethod.POST.name(), basicAuthUsername, basicAuthPassword, parameters, new HashMap<>(), jsonEntity);
+            return execute(url, HttpMethod.POST.name(), basicAuthUsername, basicAuthPassword, parameters, new HashMap<>(), entity);
         } catch (final Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
         return null;
-    }
-
-    /**
-     * Prepare credentials if needed.
-     *
-     * @param builder           the builder
-     * @param basicAuthUsername username for basic auth
-     * @param basicAuthPassword password for basic auth
-     * @return the http client builder
-     */
-    private static HttpClientBuilder prepareCredentialsIfNeeded(final HttpClientBuilder builder, final String basicAuthUsername,
-                                                                final String basicAuthPassword) {
-        if (StringUtils.isNotBlank(basicAuthUsername) && StringUtils.isNotBlank(basicAuthPassword)) {
-            val provider = new BasicCredentialsProvider();
-            val credentials = new UsernamePasswordCredentials(basicAuthUsername, basicAuthPassword);
-            provider.setCredentials(AuthScope.ANY, credentials);
-            return builder.setDefaultCredentialsProvider(provider);
-        }
-        return builder;
     }
 
     /**
@@ -351,12 +352,6 @@ public class HttpUtils {
         parameters.forEach((k, v) -> uriBuilder.addParameter(k, v.toString()));
         return uriBuilder.build();
     }
-
-    private static HttpClient buildHttpClient(final String basicAuthUsername, final String basicAuthPassword) {
-        val builder = HttpClientBuilder.create();
-        return prepareCredentialsIfNeeded(builder, basicAuthUsername, basicAuthPassword).build();
-    }
-
 
     /**
      * Create headers org . springframework . http . http headers.
